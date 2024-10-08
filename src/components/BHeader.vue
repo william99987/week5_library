@@ -4,15 +4,59 @@
   <div class="container">
     <header class="d-flex justify-content-center py-3">
       <ul class="nav nav-pills">
-        <li class="nav-item">
-          <a href="#" class="nav-link active" aria-current="page">Home (Week 4)</a>
-        </li>
-        <li class="nav-item"><a href="#" class="nav-link">About</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Contact us</a></li>
+          <router-link to="/" class="nav-link" active-class="active" aria-current="page"
+            >Home (Week 5)</router-link
+          >
+          <router-link  to="/about" class="nav-link" active-class="active">About</router-link>
+
+          <router-link v-if="!isAuthenticated" to="/Login" class="nav-link" active-class="active" aria-current="page"
+            >Login</router-link
+          >
+          <router-link to="/FireSignup" class="nav-link" active-class="active">Firebase Signup</router-link>
+
+          <router-link to="/AddBook" class="nav-link" active-class="active">Add book</router-link>
+
+          <router-link to="/GetBookCount" class="nav-link" active-class="active">Get book count</router-link>
+
+          <router-link to="/AddCloudBook" class="nav-link" active-class="active">Add cloud Books</router-link>
+
+          <router-link to="/Weather" class="nav-link" active-class="active">Weather</router-link>
+
+          <router-link to="/BookCountAPI" class="nav-link" active-class="active">Count Book Api</router-link>
+          
+          <router-link to="/GetAllBookAPI" class="nav-link" active-class="active">Get all book api</router-link>
+
+          <router-link  v-if= "!isAuthenticated" to="/FireLogin" class="nav-link" active-class="active">Firebase Login</router-link>
+
+          <button v-else @click="handleLogout" class="nav-link btn btn-link">Logout</button>
       </ul>
     </header>
   </div>
 </template>
+
+<script>
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
+import store from '@/store/store';
+export default {
+  setup() {
+    const router = useRouter(); // Use Vue Router hook for navigation
+
+    // Make sure store is correctly accessed and state is reactive
+    const isAuthenticated = computed(() => store.state.isAuthenticated);
+
+    const handleLogout = () => {
+      store.dispatch('logout'); 
+      router.push({ name: 'Login' }); 
+    };
+
+    return {
+      isAuthenticated,
+      handleLogout,
+    };
+  },
+};
+</script>
 
 <style scoped>
 .b-example-divider {
