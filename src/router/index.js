@@ -70,7 +70,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory('/'),
+  history: createWebHistory('/week5_library/'),
   routes
 })
 
