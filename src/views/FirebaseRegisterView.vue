@@ -21,7 +21,7 @@ const register = async () => {
     // Create user with email and password
     const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
     const user = userCredential.user;
-
+    console.log('Firebase Register successful!');
     console.log('Firebase Register successful!');
 
     await setDoc(doc(db, 'users', user.uid), {
