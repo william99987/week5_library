@@ -48,7 +48,7 @@ const searchTemperature = computed(() => {
 
 const iconUrl = computed(() => {
     return weatherData.value
-    ? `http://api.openweathermap.org/img/w/${weatherData.value.weather[0].icon}.png`
+    ? `https://api.openweathermap.org/img/w/${weatherData.value.weather[0].icon}.png`
     : null;
 });
 
@@ -56,7 +56,7 @@ const fetchCurrentLocationWeather = async () => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(async (position) => {
       const { latitude, longitude } = position.coords;
-      const url = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apikey}`;
+      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apikey}`;
       await fetchWeatherData(url);
     });
   }}
@@ -75,14 +75,14 @@ const fetchSearchLocationWeather = async () => {
         const locationArray = city.value.split(',').map(item => item.trim());
         const cityName = locationArray[0];
         const countryCode = locationArray[1] || '';
-        const locationUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName},${countryCode}&limit=1&appid=${apikey}`;
+        const locationUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName},${countryCode}&limit=1&appid=${apikey}`;
         const response = await axios.get(locationUrl);
 
         geoData.value = response.data;
         
         if (geoData.value.length > 0) {
         const { lat, lon } = geoData.value[0];
-        const weatherUrl = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apikey}&units=metric`;
+        const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apikey}&units=metric`;
         await fetchWeatherData(weatherUrl);
         isSearched.value = true;
         } else {
